@@ -1,0 +1,187 @@
+******************************************************************
+sudo apt-get update
+sudo apt-get upgrade
+*****************************************************************
+grep -rin "simmer" *.c
+grep -b20  "Purge complete" 154*   
+find /path/to/files* -mtime +5 -exec rm {} \;  will remove all files older than 5 days
+cat $(ls -t hum* | head -1)   the latest hum* file
+*****************************************************************
+You can configure which font gets used for the console in 
+the console menu
+*****************************************************************
+Mount a usb drive
+sudo fdisk -l  " gives name of usb probably sda1 "
+cd "to where you want the usb to be accessed"
+sudo mkdir /usb
+sudo chmod 775 /usb 
+sudo mount -t vfat /dev/sda1 /usb
+************************************************************************
+Backup the dev directory
+sudo cp dev  /usb/raspberry -a
+************************************************************************
+This will compile for the DAC chip Mcp3008 using SPI interface    
+gcc -Wall -o readMcp3008rpt readMcp3008rpt.c -lwiringPi
+
+./readMcp3008rpt all|channel[1-8] [-l] [-ce1] [-d]
+Options
+-l = load SPI driver,
+ default: do not load SPI drivers, drivers already loaded
+-ce1 = spi channel 1,
+ default: 0
+-d = differential channel input, default: single-ended
+*************************************************************************
+I think this will make my-script2.sh executable
+chmod +x my-script2.sh
+
+Preceed with sudo chmod...  when needed
+******************************************************************************
+This will copy a boot disk image completely
+"C:\Program Files (x86)\ImageWriter\Win32DiskImager.exe"
+******************************************************************************
+
+WinSCP   Excellent File Transfer progran for raspberry
+or other unix on network
+A free program 
+
+**********************************************************************************
+Remote terminal for raspberry     MobaXterm
+3. Launch MobaXterm by double-clicking the MobaXterm_Personal_6.0 icon (there's no install process -- 
+it runs straight from the exe).
+4. In the MobaXterm window, click on Sessions -> New session.
+5. In the Session settings window, it will say "Choose a session type..." Click on SSH.
+On the SSH settings tab that shows after you click on SSH, enter the IP address for your Raspberry Pi 
+from Step 0 above. Click OK.
+6. You should be back at the main MobaXterm window with a new tab showing the IP address of your Pi
+ and [SSH]. Enter your username and password to login. The default on Raspbian is username pi, password 
+raspberry
+
+7. To bring up the desktop, enter this command at the prompt:
+
+lxsession&
+You can also launch applications separately without running the whole desktop. For example, try opening 
+the text editor:
+
+leafpad&
+(the & on the end launches the application in the background so you can continue using the terminal)
+
+That should be it. Note that by default this is multi-window, so whenever you launch a new program it runs
+ in a new window. In addition to the ability to show the "desktop" or various applications in their own
+ windows, you also have the ability to drag/drop files to and from your Pi in the bottom left corner of 
+the MobaXterm window.
+
+What you're actually doing is forwarding X11 over an ssh tunnel to MobaXterm's X server, and using sftp for
+ file transfers. But that sounds too complicated.  ;) 
+
+See the MobaXterm documentation for more info:
+
+http://mobaxterm.mobatek.net/support/documentation.html
+
+
+******************************************************
+Test the SPI interface
+gcc -o spidev_test spidev_test.c
+./spidev_test -D /dev/spidev0.0
+spi mode: 0
+bits per word: 8
+max speed: 500000 Hz (500 KHz)
+
+FF FF FF FF FF FF
+40 00 00 00 00 95
+FF FF FF FF FF FF
+FF FF FF FF FF FF
+FF FF FF FF FF FF
+DE AD BE EF BA AD
+F0 0D
+
+******************************************************
+The MCP3008 is an SPI chip, so you need to connect MISO (on RPi) to Dout (on MCP3008) and MOSI (on RPi)
+ to Din (on MCP3008). CLK to CLK, 3V3 (on RPi) to Vdd & Vref and CE0 (on RPi) to CS.
+
+Then it should "just work" with WiringPi or spidev (or whatever python library you'd like to use).
+
+https://elinux.org/RPi_VerifiedPeripherals
+
+Python emulator    https://trinket.io/embed/python/33e5c3b81b#.WnuBPSXwYyU
+
+https://www.raspberrypi-spy.co.uk/2014/08/enabling-the-spi-interface-on-the-raspberry-pi/
+https://www.raspberrypi-spy.co.uk/2013/10/analogue-sensors-on-the-raspberry-pi-using-an-mcp3008/
+****************************************************
+https://www.aliexpress.com/item/5V-4-Channel-Relay-Module-Shield-for-Arduino-ARM-PIC-AVR-DSP-Electronic-5V-4-Channel/32844598569.html?src=google&albslr=224144192&isdl=y&aff_short_key=UneMJZVf&source=%7Bifdyn:dyn%7D%7Bifpla:pla%7D%7Bifdbm:DBM&albch=DID%7D&src=google&albch=shopping&acnt=708-803-3821&isdl=y&albcp=653153647&albag=34728528644&slnk=&trgt=61865531738&plac=&crea=en32844598569&netw=g&device=c&mtctp=&gclid=EAIaIQobChMI-I6kxJzG2QIVgSSGCh2FlQ1AEAQYASABEgLptfD_BwE
+****************************************************
+Total Commander is a great internal file transfer program.
+c:\users\larry\AppData\Roaming\GHISLER\wincmd.ini
+c:\users\larry\AppData\Roaming\GHISLER\wcx-ftp.ini
+********************************************************************
+To keep the same IP address for a computer on the network, 
+log into the router and assign a static address.
+***********************************************************************
+name change
+
+1. edit local host via sudo nano /etc/hosts
+2. edit hostname via sudo nano /etc/hostname
+3. update the hostname initialization via sudo /etc/init.d/hostname.sh
+After rebooting, things are back as they were.
+
+The line 127.0.1.1 raspberrypi found in /etc/hosts is there for
+compatibility with some software which expects the hostname to
+resolve. If you changed to a static IP address, then you can change
+127.0.1.1 to that new static address too.
+Should you wish to have your Pi change its name, then change
+the raspberrypi side of this entry too, as well as changing from
+raspberrypi in /etc/hostname.
+*************************************************************************
+dataplicity  provides remote access
+*************************************************************************
+clock and display
+In the RasPi-2B and RasPi-3B (at least), the Official 7" Touchscreen seems
+ to use i2c-0, which is passed through the ribbon "Display Connector". 
+Thus is appears that i2c-1 on these versions of the RasPi is still available
+ on the GPIO pins for other use: I have successfully connected a DS3231-RTC 
+to the GPIO_i2c-1 on my RasPi-2B and RasPi-3B, and the touch-functions of 
+the Touchscreen continue to work fine.
+
+Install DS3231 Real Time Clock - Latest Info
+
+
+Pin#1 3V3
+Pin#3 SDA
+Pin#5 SCL
+Pin#7 ***Not required for clock ** GPIO4
+Pin#9 GND
+
+https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=161133&sid=35d0ea031857fdd9efa81b60f94842cd
+*****************************************************************************
+compare two files in diffuse.exe
+under File - New 2 way 
+load both files
+*****************************************************************************
+KiCad New Footprint
+Open Footprint editor from PCBnew
+Select .pretty Lib
+Construct footprint, save in selected Lib
+In Eeschema assign/re-assign footprint save
+In Eeschema generate new net list
+In PCBnew Update PCB from schematic, save
+
+KiCad Change Footprint
+Open Footprint editor from PCBnew
+Select .pretty Lib
+Edit footprint save 
+In Eeschema assign/re-assign footprint save
+In Eeschema generate new net list
+In PCBnew Update PCB from schematic, save
+
+One at a time
+Select component
+right Click Change Footprint
+
+*****************************************************************************
+switch from unique log files epoch.txt to hum*.txt
+
+//static char fileName[28];// for getNewFileName epoch.txt files
+static char fileName[22];// for getHumFileName 10 daily hum*.txt files
+
+//getNewFileName(fileName,cur_time);
+getHumFileName(fileName);
+

@@ -1,0 +1,8 @@
+[Unit]
+Description=test boot
+
+[Service]
+ExecStart=/home/pi/boot/steam.sh
+
+[Install]
+WantedBy=multi-user.target
