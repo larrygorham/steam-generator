@@ -16,7 +16,7 @@ Create a directory:
 /home/pi/boot/
 
 From https://github.com/larrygorham/steam-generator
- copy all *.c and *.txt into the boot directory:
+ copy all *.c, *.sh and *.txt into the boot directory:
 
 Compile all *.c in the boot directory using the following format:
 sudo gcc steam.c -o steam -lwiringPi -lm
