@@ -21,6 +21,8 @@ From https://github.com/larrygorham/steam-generator
 Compile all *.c in the boot directory using the following format:
 sudo gcc steam.c -o steam -lwiringPi -lm
 
+chmod all *.sh files to executabled
+
 ***********************************************************************************************
 The top level is the boot service:
 Create a systemd service file /etc/systemd/system/boot.service 
