@@ -59,6 +59,10 @@ To configure a service to start automatically on boot, you need to enable it:
 
 sudo systemctl enable boot
 
+Or to stop the  automatically boot, you need to disable it:
+
+sudo systemctl disable boot
+
 To check the service logs, run:
 
 journalctl -u boot
