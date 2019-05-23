@@ -6,8 +6,7 @@
  * Copyright (c) 2019  https://github.com/larrygorham/LICENSE
  *
  * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License.
+ * it under the terms  the License.
  *
 sudo gcc steam.c -o steam -lwiringPi -lm
  ***********************************************************************
