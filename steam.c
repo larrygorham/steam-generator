@@ -1,11 +1,17 @@
 /*
  *  steam.c:
- *  Operate the steam generator
- *    to humidify the house
- * Requires: wiringPi (http://wiringpi.com)
- * 
+ *  Program to Operate the steam generator
+ *    and humidify the house
+ *
+ * Copyright (c) 2019  https://github.com/larrygorham/LICENSE
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License.
+ *
 sudo gcc steam.c -o steam -lwiringPi -lm
  ***********************************************************************
+ * Requires: wiringPi (http://wiringpi.com)
  */
 #define _GNU_SOURCE
 
@@ -56,6 +62,18 @@ void spiSetup (int spiChannel)
 }
 //-------------------------------------------------------------------------------------
 int myAnalogRead(int spiChannel,int channelConfig,int analogChannel)
+	/*
+ * SPI testing utility (using spidev driver)
+ *
+ * Copyright (c) 2007  MontaVista Software, Inc.
+ * Copyright (c) 2007  Anton Vorontsov <avorontsov@ru.mvista.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License.
+ *
+ */
+
 {
     if(analogChannel<0 || analogChannel>7)
         return -1;
